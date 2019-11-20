@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { Alert, Button, TextInput, View, StyleSheet, Dimensions, Text } from 'react-native';
 
-export default class Login extends Component {
+export default class Signup extends Component {
   constructor(props) {
     super(props);
-    console.log('con props', props)
     this.state = {
       email: '',
       password: '',
@@ -13,14 +12,16 @@ export default class Login extends Component {
   
   onLogin() {
     // const { email, password } = this.state;
+    console.log(this.props)
     // Alert.alert('Credentials', `${email} + ${password}`);
-    this.props.navigation.navigate('MoneyGotchi')
+    this.props.navigation.navigate('Login')
   }
 
   render() {
+    console.log('props', this.props)
     return (
       <View style={styles.container}>
-      <Text style={styles.text}>Login</Text>
+      <Text style={styles.text}>Signup</Text>
       <View style={styles.container}>
         
         <TextInput
@@ -38,7 +39,7 @@ export default class Login extends Component {
         />
         
         <Button
-          title={'Login'}
+          title={'Submit'}
           style={styles.input}
           onPress={() => {this.onLogin()}}
         />

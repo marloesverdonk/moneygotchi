@@ -39,6 +39,10 @@ export default class MoneyGotchi extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+          <Button
+          title={'Highscores'}
+          onPress={() => this.props.navigation.navigate('HighScores')}
+        />
         <Text style={styles.text}>MONEYGOTCHI</Text>
         
         {/* <View {...this.props} style={[styles.heart, this.props.style]}>
