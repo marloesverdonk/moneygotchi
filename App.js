@@ -1,14 +1,24 @@
 import React from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
-import Home from './components/Home'
+import MoneyGotchi from './screens/MoneyGotchi'
+import Login from './screens/Login'
 
 export default function App() {
   return (
-    <View>
+    <View style={styles.container}>
       <ScrollView  >
-        <Home/>
+        {/* <MoneyGotchi/> */}
+        <Login />
       </ScrollView>
     </View>
   );
 }
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  }
+});
