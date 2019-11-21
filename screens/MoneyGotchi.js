@@ -8,9 +8,16 @@ import Seeding from '../components/tree/Seeding'
 import Harvest from '../components/tree/Harvest'
 import BigTreeOneDollar from '../components/tree/BigTreeOneDollar'
 import BigTreeThreeDollars from '../components/tree/BigTreeThreeDollars'
-import Nursing from '../components/nursing/Nursing'
 
 export default class MoneyGotchi extends React.Component {
+  componentDidMount() {
+    setInterval(() => {
+      this.setState({
+        seconds: this.state.seconds - 1
+      })
+    }, 1000)
+  }
+
   state = {
     showNoTree: true,
     showSeeding: false,
@@ -22,7 +29,8 @@ export default class MoneyGotchi extends React.Component {
     showBigTreeThreeDollars: false,
     dollars: 1,
     love: 2,
-    water: 2
+    water: 2,
+    seconds: 3,
 
   }
 
@@ -36,6 +44,7 @@ export default class MoneyGotchi extends React.Component {
       showHarvest: false,
       showBigTreeOneDollar: false,
       showBigTreeThreeDollars: false,
+
     })
   }
 
@@ -143,9 +152,26 @@ export default class MoneyGotchi extends React.Component {
       })
       this.ShowStage('showHarvest')
     }
-
   }
 
+
+  //   renderTimeButton = () => {
+  //     return (
+  //       <Button
+  //         title="Timer"
+  //         onPress={this.onTimer}
+  //       />
+  //    )
+  // }
+
+
+  //   onTimer = () => {
+  //    setInterval(() => {
+  //       this.setState({
+  //         seconds: this.state.seconds -1
+  //       })
+  //     }, 1000)
+  //   }
 
 
   render() {
@@ -170,16 +196,16 @@ export default class MoneyGotchi extends React.Component {
           {/* <TouchableOpacity onPress={() => { this.onLove() }}><Text>Love bar:{this.state.love}</Text></TouchableOpacity> */}
           <Text>Love bar:{this.state.love}</Text>
           <Text>Water bar:{this.state.water}</Text>
+          <Text>Count down:{this.state.seconds}</Text>
         </View>
+
         <View style={styles.bar}>
           <Button title='Get money' onPress={() => { this.getMoney() }} />
           <Button title='Love' onPress={() => { this.onLove() }} />
           <Button title='Water' onPress={() => { this.onWater() }} />
+          {/* {this.renderTimeButton()} */}
         </View>
 
-        <View>
-
-        </View>
 
         <View style={styles.bottom} >
           {this.state.showNoTree
@@ -208,9 +234,6 @@ export default class MoneyGotchi extends React.Component {
   }
 }
 
-
-
-
 let ScreenHeight = Dimensions.get("window").height
 
 const styles = StyleSheet.create({
@@ -238,12 +261,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     marginBottom: 1
-  },
-  nursing: {
-    // flexDirection: "row",
-    // flex: 1,
-    // justifyContent: "flex-end",
-
   },
   heart: {
     flex: 1,
