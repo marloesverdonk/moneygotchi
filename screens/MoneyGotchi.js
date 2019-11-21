@@ -1,13 +1,13 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button, TouchableOpacity, Dimensions } from 'react-native';
-import BigTree from './tree/BigTree'
-import MediumTree from './tree/MediumTree';
-import SmallTree from './tree/SmallTree';
-import NoTree from './tree/NoTree'
-import Seeding from './tree/Seeding'
+import BigTree from '../components/tree/BigTree'
+import MediumTree from '../components/tree/MediumTree';
+import SmallTree from '../components/tree/SmallTree';
+import NoTree from '../components/tree/NoTree'
+import Seeding from '../components/tree/Seeding'
 import Nursing from '../components/nursing/Nursing'
 
-export default class Home extends React.Component {
+export default class MoneyGotchi extends React.Component {
   state = {
     showNoTree: false,
     showSeeding: false,
@@ -39,6 +39,10 @@ export default class Home extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+          <Button
+          title={'Highscores'}
+          onPress={() => this.props.navigation.navigate('HighScores')}
+        />
         <Text style={styles.text}>MONEYGOTCHI</Text>
         
         {/* <View {...this.props} style={[styles.heart, this.props.style]}>
