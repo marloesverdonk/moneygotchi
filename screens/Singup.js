@@ -1,20 +1,35 @@
 import React, { Component } from 'react';
 import { Alert, Button, TextInput, View, StyleSheet, Dimensions, Text } from 'react-native';
+import { url } from '../constants'
 
 export default class Signup extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
+state = {
       email: '',
       password: '',
     };
-  }
   
-  onLogin() {
-    // const { email, password } = this.state;
-    console.log(this.props)
-    // Alert.alert('Credentials', `${email} + ${password}`);
-    this.props.navigation.navigate('Login')
+  
+  onSignup = () => {
+    return fetch(`${url}/signup`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: this.state.email,
+        password: this.state.password
+      })
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        if(response.status === 'ok')
+        this.props.navigation.navigate('Login')
+        else alert('Provide valid email and password!')
+      })
+      .catch((error) => {
+        console.error(error)
+      })
   }
 
   render() {
@@ -41,7 +56,7 @@ export default class Signup extends Component {
         <Button
           title={'Submit'}
           style={styles.input}
-          onPress={() => {this.onLogin()}}
+          onPress={() => {this.onSignup()}}
         />
       </View>
       </View>

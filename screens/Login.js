@@ -1,50 +1,85 @@
 import React, { Component } from 'react';
 import { Alert, Button, TextInput, View, StyleSheet, Dimensions, Text } from 'react-native';
+import * as request from 'superagent'
+import { url } from '../constants'
+import { login } from '../actions/auth'
+import { connect } from "react-redux";
 
-export default class Login extends Component {
-  constructor(props) {
-    super(props);
-    console.log('con props', props)
-    this.state = {
-      email: '',
-      password: '',
-    };
-  }
-  
-  onLogin() {
+
+class Login extends Component {
+  state = {
+    email: '',
+    password: '',
+  };
+
+  onLogin = () => {
     // const { email, password } = this.state;
     // Alert.alert('Credentials', `${email} + ${password}`);
-    this.props.navigation.navigate('MoneyGotchi')
+    //this.props.navigation.navigate('MoneyGotchi')
+
+    // request.post(`${url}`)
+    //   .send(JSON.stringify({
+    //     email: this.state.email,
+    //     password: this.state.password
+    //   }))
+    //   .then(result => console.log(result.body.jwt))
+    //   .catch(console.error)
+    // this.setState({
+    //   email: "",
+    //   password: ""
+    // })
+
+    return fetch(`${url}/login`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: this.state.email,
+        password: this.state.password
+      })
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        this.props.navigation.navigate('MoneyGotchi')
+        // if(response.jwt)
+        // this.props.navigation.navigate('MoneyGotchi')
+        // else alert('Wrong email or password!')
+      })
+      .catch((error) => {
+        console.error(error)
+      })
   }
 
   render() {
     return (
-      <View style={styles.container}>
-      <Text style={styles.text}>Login</Text>
-      <View style={styles.container}>
-        
-        <TextInput
-          value={this.state.username}
-          onChangeText={(email) => this.setState({ email })}
-          placeholder={'Email'}
-          style={styles.input}
-        />
-        <TextInput
-          value={this.state.password}
-          onChangeText={(password) => this.setState({ password })}
-          placeholder={'Password'}
-          secureTextEntry={true}
-          style={styles.input}
-        />
-        
-        <Button
-          title={'Login'}
-          style={styles.input}
-          onPress={() => {this.onLogin()}}
-        />
-      </View>
-      </View>
-    );
+          <View style={styles.container}>
+            <Text style={styles.text}>Login</Text>
+            <View style={styles.container}>
+
+              <TextInput
+                value={this.state.username}
+                onChangeText={(email) => this.setState({ email })}
+                placeholder={'Email'}
+                style={styles.input}
+              />
+              <TextInput
+                value={this.state.password}
+                onChangeText={(password) => this.setState({ password })}
+                placeholder={'Password'}
+                secureTextEntry={true}
+                style={styles.input}
+              />
+
+              <Button
+                title={'Login'}
+                style={styles.input}
+                onPress={() => { this.onLogin() }}
+              />
+            </View>
+          </View>
+    ) 
   }
 }
 
@@ -77,3 +112,14 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
 });
+
+const mapStateToProps = state => {
+  return {
+    token: state.auth
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { login }
+)(Login);
