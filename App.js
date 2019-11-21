@@ -2,6 +2,8 @@ import React from 'react';
 import { StyleSheet, Text, View, ScrollView, Button, Dimensions } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
+import { Provider } from 'react-redux';
+import store from './store'
 
 //Screens
 import MoneyGotchi from './screens/MoneyGotchi'
@@ -45,7 +47,9 @@ const AppContainer = createAppContainer(RootStack);
 export default class App extends React.Component {
   render() {
     return (
+      <Provider store={store}>
       <AppContainer/>
+      </Provider>
     );
   }
 }
