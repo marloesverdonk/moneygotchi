@@ -10,26 +10,27 @@ state = {
   
   
   onSignup = () => {
-    return fetch(`${url}/signup`, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: this.state.email,
-        password: this.state.password
-      })
-    })
-      .then((response) => response.json())
-      .then((response) => {
-        if(response.status === 'ok')
-        this.props.navigation.navigate('Login')
-        else alert('Provide valid email and password!')
-      })
-      .catch((error) => {
-        console.error(error)
-      })
+    // return fetch(`${url}/signup`, {
+    //   method: 'POST',
+    //   headers: {
+    //     Accept: 'application/json',
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({
+    //     email: this.state.email,
+    //     password: this.state.password
+    //   })
+    // })
+    //   .then((response) => response.json())
+    //   .then((response) => {
+    //     if(response.status === 'ok')
+    //     this.props.navigation.navigate('Login')
+    //     else alert('Provide valid email and password!')
+    //   })
+    //   .catch((error) => {
+    //     console.error(error)
+    //   })
+    this.props.navigation.navigate('Login')
   }
 
   render() {
@@ -53,11 +54,14 @@ state = {
           style={styles.input}
         />
         
-        <Button
-          title={'Submit'}
-          style={styles.input}
-          onPress={() => {this.onSignup()}}
-        />
+        <View style={styles.buttonContainer}>
+              <Button
+                title={'Submit'}
+                style={styles.input}
+                onPress={() => { this.onSignup() }}
+                color='white'
+              />
+              </View>
       </View>
       </View>
     );
@@ -91,5 +95,9 @@ const styles = StyleSheet.create({
     padding: 20,
     justifyContent: 'flex-start',
     textAlign: 'center'
+  },
+  buttonContainer: {
+    margin: 10,
+    backgroundColor: 'darkslategrey'
   },
 });

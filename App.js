@@ -14,16 +14,28 @@ import HighScores from './screens/HighScores'
 class HomeScreen extends React.Component {
   render() {
     return (
-      <View style={styles.container}>
+      <View>
+        <View>
         <Text style={styles.text}>Home Screen</Text>
+        </View>
+      <View style={styles.container}>
+        
+        
+        <View style={styles.buttonContainer }>
         <Button
           title="Signup"
           onPress={() => this.props.navigation.navigate('Signup')}
+          color='white'
         />
+        </View>
+        <View style={styles.buttonContainer }>
          <Button
           title="Login"
           onPress={() => this.props.navigation.navigate('Login')}
+          color='white'
         />
+        </View>
+      </View>
       </View>
     );
   }
@@ -58,9 +70,9 @@ let ScreenHeight = Dimensions.get("window").height
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
     height: ScreenHeight,
-   // flexDirection: 'column',
+   flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#ecf0f1',
@@ -73,6 +85,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     padding: 20,
     justifyContent: 'flex-start',
-    textAlign: 'center'
+    textAlign: 'center',
   },
+  buttonContainer: {
+    margin: 10,
+    backgroundColor: 'darkslategrey'
+  },
+
 });

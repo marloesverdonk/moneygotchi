@@ -16,6 +16,7 @@ export default class MoneyGotchi extends React.Component {
         seconds: this.state.seconds - 1
       })
     }, 1000)
+
   }
 
   state = {
@@ -28,9 +29,9 @@ export default class MoneyGotchi extends React.Component {
     showBigTreeOneDollar: false,
     showBigTreeThreeDollars: false,
     dollars: 1,
-    love: 2,
-    water: 2,
-    seconds: 3,
+    love: 1,
+    water: 1,
+    seconds: 100,
 
   }
 
@@ -58,7 +59,7 @@ export default class MoneyGotchi extends React.Component {
   onDollar = () => {
     if (this.state.dollars >= 0 && this.state.showNoTree === true) {
       this.setState({
-        dollars: this.state.dollars - 1
+        dollars: this.state.dollars - 1,
       })
       this.ShowStage('showSeeding')
     }
@@ -67,7 +68,8 @@ export default class MoneyGotchi extends React.Component {
   onLove = () => {
     if (!this.state.showNoTree && !this.state.showBigTree) {
       this.setState({
-        love: this.state.love + 1
+        love: this.state.love + 1,
+        seconds: 100
       })
       this.goToNextStageLove()
     }
@@ -76,7 +78,8 @@ export default class MoneyGotchi extends React.Component {
   onWater = () => {
     if (!this.state.showNoTree && !this.state.showBigTree) {
       this.setState({
-        water: this.state.water + 1
+        water: this.state.water + 1,
+        seconds: 100
       })
       this.goToNextStageWater()
     }
@@ -191,25 +194,47 @@ export default class MoneyGotchi extends React.Component {
         {/* <View style={styles.money}/> */}
 
 
-        <View style={styles.bar}>
-          <Text>Dollars:{this.state.dollars}</Text>
-          {/* <TouchableOpacity onPress={() => { this.onLove() }}><Text>Love bar:{this.state.love}</Text></TouchableOpacity> */}
-          <Text>Love bar:{this.state.love}</Text>
-          <Text>Water bar:{this.state.water}</Text>
-          <Text>Count down:{this.state.seconds}</Text>
+        <View style={styles.bar1}>
+          <Text style={styles.display}>💰${this.state.dollars}</Text>
+          <Text style={styles.display}>⏰{this.state.seconds}</Text>
         </View>
 
-        <View style={styles.bar}>
-          <Button title='Get money' onPress={() => { this.getMoney() }} />
-          <Button title='Love' onPress={() => { this.onLove() }} />
-          <Button title='Water' onPress={() => { this.onWater() }} />
+        <View style={styles.bar1}>
+          <View style={styles.bar}>
+            {this.state.love === 1
+              ? <Text style={styles.display}>❤️</Text>
+              : this.state.love === 2
+                ? <Text style={styles.display}>❤️ ❤️</Text>
+                : this.state.love === 3
+                  ? <Text style={styles.display}>❤️ ❤️ ❤️</Text>
+                  : <Text style={styles.display}>❤️ ❤️ ❤️</Text>}
+          </View>
+
+          <View style={styles.bar}>
+            {this.state.water === 1
+              ? <Text style={styles.display}>💧</Text>
+              : this.state.water === 2
+                ? <Text style={styles.display}>💧💧</Text>
+                : this.state.water === 3
+                  ? <Text style={styles.display}>💧💧💧</Text>
+                  : <Text style={styles.display}>💧💧💧</Text>}
+          </View>
+        </View>
+
+        <View style={styles.bar2}>
+          {/* <Button title='Get money' onPress={() => { this.getMoney() }} /> */}
+          {/* <Button title='Love' onPress={() => { this.onLove() }} />
+          <Button title='Water' onPress={() => { this.onWater() }} /> */}
+          <TouchableOpacity onPress={() => { this.getMoney() }}><Text style={styles.button}>🤑</Text></TouchableOpacity>
+          <TouchableOpacity onPress={() => { this.onLove() }}><Text style={styles.button}>❤️</Text></TouchableOpacity>
+          <TouchableOpacity onPress={() => { this.onWater() }}><Text style={styles.button}>💧</Text></TouchableOpacity>
           {/* {this.renderTimeButton()} */}
         </View>
 
 
         <View style={styles.bottom} >
           {this.state.showNoTree
-            ? < View><Button title='Plant a tree' onPress={() => { this.onDollar() }} /><NoTree /></View>
+            ? < View><Button title='Plant your moneytree!🌴💲' onPress={() => { this.onDollar() }} /><NoTree /></View>
             : this.state.showSeeding
               ? < View><Seeding /></View>
               : this.state.showSmallTree
@@ -247,7 +272,32 @@ const styles = StyleSheet.create({
     // justifyContent: 'center',
   },
   bar: {
-    flexDirection: "row"
+    // flex: 1,
+    flexDirection: "column",
+    padding: 0,
+  },
+  bar1: {
+    // flex: 1,
+    flexDirection: "row",
+    padding: 0,
+  },
+  bar2: {
+    // flex: 1,
+    flexDirection: "row",
+    padding: 0,
+    right: 0,
+    top: 40
+  },
+  display: {
+    padding: 10,
+    fontSize: 30
+  },
+  button: {
+    padding: 10,
+    fontSize: 50,
+    margin: 10,
+    // backgroundColor: 'white',
+
   },
   text: {
     marginTop: 36,
@@ -260,7 +310,7 @@ const styles = StyleSheet.create({
   bottom: {
     flex: 1,
     justifyContent: 'flex-end',
-    marginBottom: 1
+    marginBottom: 1,
   },
   heart: {
     flex: 1,
@@ -296,5 +346,9 @@ const styles = StyleSheet.create({
     borderRadius: 100 / 2,
     backgroundColor: 'yellow',
     margin: 2
+  },
+  buttonContainer: {
+    margin: 10,
+    backgroundColor: 'darkslategrey'
   },
 });

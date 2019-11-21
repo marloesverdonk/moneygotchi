@@ -29,27 +29,29 @@ class Login extends Component {
     //   password: ""
     // })
 
-    return fetch(`${url}/login`, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: this.state.email,
-        password: this.state.password
-      })
-    })
-      .then((response) => response.json())
-      .then((response) => {
-        this.props.navigation.navigate('MoneyGotchi')
-        // if(response.jwt)
-        // this.props.navigation.navigate('MoneyGotchi')
-        // else alert('Wrong email or password!')
-      })
-      .catch((error) => {
-        console.error(error)
-      })
+    // return fetch(`${url}/login`, {
+    //   method: 'POST',
+    //   headers: {
+    //     Accept: 'application/json',
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({
+    //     email: this.state.email,
+    //     password: this.state.password
+    //   })
+    // })
+    //   .then((response) => response.json())
+    //   .then((response) => {
+    //     this.props.navigation.navigate('MoneyGotchi')
+    //     // if(response.jwt)
+    //     // this.props.navigation.navigate('MoneyGotchi')
+    //     // else alert('Wrong email or password!')
+    //   })
+    //   .catch((error) => {
+    //     console.error(error)
+    //   })
+
+    this.props.navigation.navigate('MoneyGotchi')
   }
 
   render() {
@@ -71,12 +73,14 @@ class Login extends Component {
                 secureTextEntry={true}
                 style={styles.input}
               />
-
+              <View style={styles.buttonContainer}>
               <Button
                 title={'Login'}
                 style={styles.input}
                 onPress={() => { this.onLogin() }}
+                color='white'
               />
+              </View>
             </View>
           </View>
     ) 
@@ -110,6 +114,10 @@ const styles = StyleSheet.create({
     padding: 20,
     justifyContent: 'flex-start',
     textAlign: 'center'
+  },
+  buttonContainer: {
+    margin: 10,
+    backgroundColor: 'darkslategrey'
   },
 });
 
