@@ -16,7 +16,8 @@ class HomeScreen extends React.Component {
     return (
       <View>
         <View>
-        <Text style={styles.text}>Home Screen</Text>
+        <Text style={styles.text}>Moneygotchi</Text>
+      
         </View>
       <View style={styles.container}>
         
